@@ -1,0 +1,85 @@
+﻿17.12.2018
+
+- updated jQuery and jQuery UI
+
+Files changed:
+
+- all HTML files
+- js/jquery.min.js is no longer in use
+- js/jquery-ui.min.js is no longer in use
+
+
+29.07.2015
+
+- updated all plugins
+- resolved some minor css issues
+
+Files changed:
+
+css/lightGallery.min.css
+css/style.css
+fonts/slide/Slide-icons.eot
+fonts/slide/Slide-icons.svg
+fonts/slide/Slide-icons.ttf
+fonts/slide/Slide-icons.woff
+js/lightGallery.min.js
+js/jquery.lightSlider.min.js
+js/jquery.min.js
+js/jquery-ui.min.js
+js/jquery.uniform.min.js
+js/scripts.js
+js/wow.min.js
+
+21.12.2015
+
+- fixed Safari submenu offset
+- revalidated css
+
+Files changed:
+
+css/style.css
+
+
+01.05.2015
+
+- really fixed offset issue
+- fixed hero image issue
+- fixed parallax image chrome issues
+- added phone number submit to contact form email
+- added my account pages
+- added lightbox gallery
+
+Files changed:
+
+css/style.css
+js/scripts.js
+contact_form_message.php
+destinations-micro.html
+yacht-sale-single.html
+yacht-single.html
+
+Files added:
+
+css/lightGallery.min.css
+images/dark-bg.png
+images/loading.gif
+fonts/slide/Slide-icons.eot
+fonts/slide/Slide-icons.svg
+fonts/slide/Slide-icons.ttf
+fonts/slide/Slide-icons.woff
+js/lightGallery.min.js
+account.html
+
+-----------------------------------------------
+
+04.04.2015
+
+- fixed offset issue
+
+Files changed:
+
+js/scripts.js
+
+-----------------------------------------------
+
+26.03.2015 – Initial release

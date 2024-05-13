@@ -1,0 +1,11 @@
+# Ignore the .env file
+.env
+
+# Ignore venv folder
+venv/
+
+# Ignore the models directory's __pycache__ folder (python bytecode)
+models/__pycache__/
+*.pyc
+**/*.pyc
+routes/__pycache__/
