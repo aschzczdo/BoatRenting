@@ -1,33 +1,32 @@
-import mysql.connector
+# db.py
+
+import psycopg2
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-MYSQL_HOST = os.getenv("MYSQL_HOST")
-MYSQL_PORT = os.getenv("MYSQL_PORT")
-MYSQL_USER = os.getenv("MYSQL_USER")
-MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
-MYSQL_DB = os.getenv("MYSQL_DB")
+SUPABASE_HOST = "aws-0-eu-central-1.pooler.supabase.com"
+SUPABASE_DBNAME = "postgres"
+SUPABASE_PORT = 6543
+SUPABASE_USER = "postgres.ykpcrlwaxxabqesnivfz"
+SUPABASE_PASSWORD = "qxbGtzdsMT1F0zBa"
 
-
-def mysql_connection():
+def postgres_connection():
     try:
-        # Establish connection to the MySQL database
-        conn = mysql.connector.connect(
-            host=MYSQL_HOST,
-            port=MYSQL_PORT,
-            user=MYSQL_USER,
-            password=MYSQL_PASSWORD,
-            database=MYSQL_DB,
+        # Establish connection to the PostgreSQL database
+        conn = psycopg2.connect(
+            host=SUPABASE_HOST,
+            port=SUPABASE_PORT,
+            dbname=SUPABASE_DBNAME,
+            user=SUPABASE_USER,
+            password=SUPABASE_PASSWORD,
         )
 
         # Return the connection object
         return conn
 
-    except mysql.connector.Error as e:
+    except psycopg2.Error as e:
         # Handle connection errors
-        print(f"Error connecting to MySQL: {e}")
+        print(f"Error connecting to PostgreSQL: {e}")
         return None
-
-

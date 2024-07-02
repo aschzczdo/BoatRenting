@@ -1,30 +1,29 @@
 import bcrypt
-from models.db import mysql_connection
-from flask_login import UserMixin
-
-class User(UserMixin):
-    def __init__(self, user_id, username):
-        self.id = user_id
-        self.username = username
+from models.db import postgres_connection
 
 def check_password(plain_password, hashed_password):
     # Check if the plain password matches the hashed password
     return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password)
 
 def login_user(username, password):
-    conn = mysql_connection()
+    conn = postgres_connection()
     if conn:
         try:
             cursor = conn.cursor()
 
             # Retrieve the hashed password and salt from the database
-            query = "SELECT password, salt FROM User WHERE username = %s"
+            query = """
+            SELECT password, salt FROM "User" WHERE username = %s;
+            """
             cursor.execute(query, (username,))
             result = cursor.fetchone()
 
             if result:
                 hashed_password, salt = result
-                hashed_password = hashed_password.encode('utf-8')  # Convert to bytes
+
+                # Convert hashed_password to bytes if it is not already
+                if isinstance(hashed_password, (memoryview, bytearray)):
+                    hashed_password = bytes(hashed_password)
 
                 # Use the retrieved salt to verify the password
                 if bcrypt.checkpw(password.encode('utf-8'), hashed_password):

@@ -1,8 +1,8 @@
-from models.db import mysql_connection
 import bcrypt
+from models.db import postgres_connection
 
 def register_user(username, email, password, name, surname):
-    conn = mysql_connection()
+    conn = postgres_connection()
     if conn:
         try:
             cursor = conn.cursor()
@@ -12,12 +12,18 @@ def register_user(username, email, password, name, surname):
             hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
 
             # Insert user data into the database
-            query = "INSERT INTO User (username, email, password, salt, role_id, account_status_id) VALUES (%s, %s, %s, %s, %s, %s)"
-            cursor.execute(query, (username, email, hashed_password, salt, 1, 1))  # Role ID 1 for customer, Account status ID 1 for active
-            user_id = cursor.lastrowid
+            query = """
+            INSERT INTO "User" (username, email, password, salt, role_id, account_status_id)
+            VALUES (%s, %s, %s, %s, %s, %s) RETURNING user_id;
+            """
+            cursor.execute(query, (username, email, hashed_password, salt, 1, 1))
+            user_id = cursor.fetchone()[0]
 
             # Insert profile data into the database
-            query = "INSERT INTO Profile (user_id, name, surname) VALUES (%s, %s, %s)"
+            query = """
+            INSERT INTO "Profile" (user_id, name, surname)
+            VALUES (%s, %s, %s);
+            """
             cursor.execute(query, (user_id, name, surname))
 
             conn.commit()
@@ -32,10 +38,3 @@ def register_user(username, email, password, name, surname):
             conn.close()
 
     return False  # Registration failed
-
-    return False  # Registration failed
-def encrypt_password(password):
-    # Generate a salt and hash the password using bcrypt
-    salt = bcrypt.gensalt()
-    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
-    return hashed_password
