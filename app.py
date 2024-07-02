@@ -8,6 +8,7 @@ from routes.destinations import destinations_blueprint
 from routes.main import main_blueprint
 from routes.dashboard import dashboard_blueprint
 from routes.contact import contact_blueprint
+from routes.booking_page import booking_blueprint
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -20,16 +21,20 @@ app.register_blueprint(destinations_blueprint)
 app.register_blueprint(main_blueprint)
 app.register_blueprint(dashboard_blueprint)
 app.register_blueprint(contact_blueprint)
+app.register_blueprint(booking_blueprint)
+
 
 # Home route
 @app.route("/")
 def home():
     return render_template("index.html")
 
+
 # Charters route
 @app.route("/charters")
 def charters():
     return render_template("charters.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

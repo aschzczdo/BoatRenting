@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Booking Confirmation - Mallorca Boat Rentals</title>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+	<style>
+		body {
+			font-family: 'Poppins', sans-serif;
+			line-height: 1.6;
+			color: #333;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: #f4f4f4;
+		}
+
+		.container {
+			background-color: white;
+			border-radius: 10px;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+			padding: 30px;
+		}
+
+		.header {
+			display: flex;
+			align-items: center;
+			margin-bottom: 30px;
+			border-bottom: 2px solid #f0f0f0;
+			padding-bottom: 20px;
+		}
+
+		.logo {
+			width: 60px;
+			height: 60px;
+			margin-right: 15px;
+		}
+
+		h1 {
+			font-size: 28px;
+			margin: 0;
+			color: #0077be;
+		}
+
+		.booking-info {
+			background-color: #e6f3ff;
+			border-radius: 8px;
+			padding: 25px;
+			margin-bottom: 30px;
+		}
+
+		.guest-info {
+			display: flex;
+			align-items: center;
+			margin-bottom: 20px;
+		}
+
+		.guest-avatar {
+			width: 60px;
+			height: 60px;
+			border-radius: 50%;
+			margin-right: 20px;
+			object-fit: cover;
+		}
+
+		.extra-services {
+			margin-bottom: 30px;
+		}
+
+		.service-item {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 20px;
+			padding: 15px;
+			background-color: #f9f9f9;
+			border-radius: 8px;
+			transition: background-color 0.3s;
+		}
+
+		.service-item:hover {
+			background-color: #e6f3ff;
+		}
+
+		.service-info {
+			flex-grow: 1;
+			margin-right: 15px;
+		}
+
+		.service-name {
+			font-weight: 600;
+			margin-bottom: 5px;
+		}
+
+		.service-description {
+			font-size: 14px;
+			color: #666;
+		}
+
+		.service-price-time {
+			font-weight: 600;
+			text-align: right;
+			white-space: nowrap;
+		}
+
+		.total {
+			font-size: 24px;
+			font-weight: bold;
+			text-align: right;
+			margin-top: 20px;
+			padding-top: 20px;
+			border-top: 2px solid #f0f0f0;
+		}
+
+		.send-message {
+			background-color: #0077be;
+			color: white;
+			border: none;
+			padding: 12px 25px;
+			font-size: 18px;
+			border-radius: 25px;
+			cursor: pointer;
+			width: 100%;
+			transition: background-color 0.3s;
+		}
+
+		.send-message:hover {
+			background-color: #005c8f;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="header">
+			<img src="https://via.placeholder.com/60" alt="Logo" class="logo">
+			<h1>Mallorca Boat Rentals</h1>
+		</div>
+
+		<div class="booking-info">
+			<h2>New booking confirmed! <span id="guestName"></span> arrives <span id="checkInDate"></span>.</h2>
+			<div class="guest-info">
+				<img src="https://via.placeholder.com/60" alt="Guest Avatar" class="guest-avatar">
+				<div>
+					<strong id="guestNameInfo"></strong><br>
+					<span id="guestCountry"></span><br>
+					Customer since <span id="customerSince"></span>
+				</div>
+			</div>
+			<p><strong>Boat:</strong> <span id="boatName"></span></p>
+			<p><strong>Check-in:</strong> <span id="checkIn"></span></p>
+			<p><strong>Check-out:</strong> <span id="checkOut"></span></p>
+			<p><strong>Number of guests:</strong> <span id="guestCount"></span></p>
+		</div>
+
+		<div class="extra-services">
+			<h3>Extra Services</h3>
+			<div class="service-item">
+				<input type="checkbox" name="skipper" onchange="updateTotal()">
+				<div class="service-info">
+					<div class="service-name">Professional Skipper</div>
+					<div class="service-description">Experienced captain to navigate and ensure safety</div>
+				</div>
+				<div class="service-price-time">€250 / day</div>
+			</div>
+			<div class="service-item">
+				<input type="checkbox" name="fuel" onchange="updateTotal()">
+				<div class="service-info">
+					<div class="service-name">Full Tank of Fuel</div>
+					<div class="service-description">Pre-filled tank for hassle-free boating</div>
+				</div>
+				<div class="service-price-time">€150</div>
+			</div>
+			<div class="service-item">
+				<input type="checkbox" name="paddleboard" onchange="updateTotal()">
+				<div class="service-info">
+					<div class="service-name">Paddleboard</div>
+					<div class="service-description">Enjoy stand-up paddling during your trip</div>
+				</div>
+				<div class="service-price-time">€50 / day</div>
+			</div>
+			<div class="service-item">
+				<input type="checkbox" name="snorkelGear" onchange="updateTotal()">
+				<div class="service-info">
+					<div class="service-name">Snorkeling Gear</div>
+					<div class="service-description">Mask, snorkel, and fins for underwater exploration</div>
+				</div>
+				<div class="service-price-time">€30 / set / day</div>
+			</div>
+			<div class="service-item">
+				<input type="checkbox" name="catering" onchange="updateTotal()">
+				<div class="service-info">
+					<div class="service-name">Gourmet Catering</div>
+					<div class="service-description">Delicious meals prepared by a local chef</div>
+				</div>
+				<div class="service-price-time">€100 / person / day</div>
+			</div>
+		</div>
+
+		<div class="total">
+			Total: €<span id="totalAmount">0</span>
+		</div>
+
+		<button class="send-message">Send a message</button>
+	</div>
+
+	<script>
+		// Sample booking data (replace with actual data from your backend)
+		const booking = {
+			guestName: "Alan",
+			checkInDate: "Aug 19, 2024",
+			checkOutDate: "Aug 22, 2024",
+			guestCountry: "Germany",
+			customerSince: "2020",
+			boatName: "Sunseeker Manhattan 52",
+			guestCount: 4,
+			basePrice: 1500
+		};
+
+		// Populate booking information
+		document.getElementById('guestName').textContent = booking.guestName;
+		document.getElementById('guestNameInfo').textContent = booking.guestName;
+		document.getElementById('checkInDate').textContent = booking.checkInDate;
+		document.getElementById('guestCountry').textContent = booking.guestCountry;
+		document.getElementById('customerSince').textContent = booking.customerSince;
+		document.getElementById('boatName').textContent = booking.boatName;
+		document.getElementById('checkIn').textContent = booking.checkInDate;
+		document.getElementById('checkOut').textContent = booking.checkOutDate;
+		document.getElementById('guestCount').textContent = booking.guestCount;
+
+		function updateTotal() {
+			let total = booking.basePrice;
+			if (document.querySelector('input[name="skipper"]').checked) total += 250;
+			if (document.querySelector('input[name="fuel"]').checked) total += 150;
+			if (document.querySelector('input[name="paddleboard"]').checked) total += 50;
+			if (document.querySelector('input[name="snorkelGear"]').checked) total += 30;
+			if (document.querySelector('input[name="catering"]').checked) total += 100 * booking.guestCount;
+			document.getElementById('totalAmount').textContent = total;
+		}
+
+		// Initialize total
+		updateTotal();
+	</script>
+</body>
+
+</html>
